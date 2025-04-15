@@ -1,16 +1,32 @@
+/* Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
+/* ========== BASE STYLES ========== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* ========== PAGE BACKGROUND ========== */
 .search-page {
-  background:#2b003c;
+  background-image: url('H10.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   min-height: 100vh;
-  font-family: 'Poppins', sans-serif;
-  padding: 120px 20px 20px;
+  padding: 40px 20px 20px; /* reduced top padding */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 0;
 }
 
-/* Sticky Search Bar Container */
+/* ========== SEARCH CONTAINER ========== */
 .search-container {
   background: rgba(0, 0, 0, 0.6);
   padding: 20px 30px;
@@ -23,16 +39,10 @@
   gap: 16px;
   max-width: 700px;
   width: 100%;
-
-  /* Sticky on scroll */
-  position: fixed;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 999;
+  margin-bottom: 30px; /* space below search bar */
+  position: static; /* makes it scrollable */
 }
 
-/* Neon Border Glow */
 .search-container::before {
   content: '';
   position: absolute;
@@ -46,20 +56,19 @@
   filter: blur(4px);
 }
 
-/* Neon Glow Animation */
+/* ========== ANIMATIONS ========== */
 @keyframes neonGlow {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
-/* Search box styling */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/* ========== SEARCH BOX ========== */
 .search-box {
   display: flex;
   align-items: center;
@@ -68,8 +77,8 @@
   padding: 12px 20px;
   flex: 1;
   color: white;
-  transition: background 0.3s;
   position: relative;
+  transition: background 0.3s;
 }
 
 .search-box:hover {
@@ -87,7 +96,6 @@
   padding: 6px 12px;
 }
 
-/* Typing animation placeholder (handled by JS) */
 .search-input::placeholder {
   color: rgba(255, 255, 255, 0.5);
   transition: all 0.3s ease;
@@ -100,7 +108,7 @@
   margin: 0 10px;
 }
 
-/* Submit Button */
+/* ========== SEARCH BUTTON ========== */
 .submit-btn {
   background-color: #ffffff;
   color: #2b003c;
@@ -121,20 +129,152 @@
   box-shadow: 0 0 15px rgba(255, 0, 204, 0.5);
 }
 
-/* Responsive */
+/* ========== RESPONSIVE ========== */
 @media screen and (max-width: 600px) {
   .search-container {
     flex-direction: column;
     align-items: stretch;
-    top: 10px;
     padding: 16px 20px;
   }
 
-  .submit-btn {
-    width: 100%;
-  }
-
+  .submit-btn,
   .search-box {
     width: 100%;
   }
+}
+
+/* ========== RESULTS CONTAINER ========== */
+.search-results-wrapper {
+  margin-top: 0;
+  padding: 20px;
+}
+
+/* ========== HEADINGS, ERRORS, SPINNER ========== */
+.results h3,
+.no-results {
+  color: white;
+  font-size: 24px;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  text-align: center;
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
+}
+
+.error-message {
+  color: red;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.spinner {
+  font-size: 20px;
+  font-weight: bold;
+  color: #3498db;
+  text-align: center;
+  margin-top: 20px;
+  animation: spin 1s linear infinite;
+}
+
+/* ========== RESULTS GRID (CARD STYLE) ========== */
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.result-item {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s;
+}
+
+.result-item:hover {
+  transform: translateY(-4px);
+}
+
+.result-item .label {
+  font-weight: 600;
+  font-size: 15px;
+  color: #222;
+}
+
+.result-item .value {
+  font-size: 15px;
+  color: #555;
+  margin-bottom: 6px;
+}
+
+.customer-info,
+.company-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* ========== PRINT BUTTON ON CARD ========== */
+.print-btn {
+  background-color: #ff00cc;
+  color: white;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+  align-self: flex-start;
+  margin-top: 10px;
+  transition: 0.3s ease;
+}
+
+.print-btn:hover {
+  background-color: #ff0077;
+  box-shadow: 0 0 15px rgba(255, 0, 204, 0.5);
+}
+
+/* ========== PAGINATION ========== */
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.pagination-btn {
+  background-color: #ffffff;
+  color: #2b003c;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.3s ease, color 0.3s ease;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+}
+
+.pagination-btn:hover {
+  background-color: #ff00cc;
+  color: white;
+  box-shadow: 0 0 12px rgba(255, 0, 204, 0.5);
+}
+
+.pagination-btn:disabled {
+  background-color: #ccc;
+  color: #888;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.results {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
