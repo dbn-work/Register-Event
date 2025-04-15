@@ -113,10 +113,11 @@ const adminRoutes = require('./routes/adminRoutes');
 const invitationRoutes = require('./routes/invitationRoutes');
 const invitationController = require('./controllers/invitationController');
 const cron = require('node-cron');
-
 // Models
 const Registration = require('./models/Registration');
 const Invitation = require("./models/invitationModel");
+
+const mongoURI = process.env.MONGODB_URI
 
 // App Init
 const app = express();
@@ -124,7 +125,7 @@ app.use(cors());
 app.use(express.json());
 
 // ✅ MongoDB Connection
-mongoose.connect('mongodb://127.0.0.1:27017/registrationDB', {
+mongoose.connect(mongoURI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
