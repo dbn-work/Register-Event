@@ -1,0 +1,188 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+  }
+  
+  .button-panel {
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
+    gap: 15px;
+  }
+  
+  .edit-button,
+  .send-button,
+  .save-button {
+    padding: 10px 20px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .edit-button {
+    background-color: #b41d09;
+  }
+  
+  .edit-button:hover {
+    background-color: #92400e;
+  }
+  
+  .send-button {
+    background-color: #15803d;
+  }
+  
+  .send-button:hover {
+    background-color: #11632f;
+  }
+  
+  .save-button {
+    margin-top: 10px;
+    background-color: #2563eb;
+  }
+  
+  .save-button:hover {
+    background-color: #1d4ed8;
+  }
+  
+  .card {
+    background: white;
+    padding: 40px;
+    width: 500px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    text-align: left;
+    font-family: 'Georgia', serif;
+  }
+  
+  .invitation-title {
+    color: #78350f;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+  
+  .invitation-subtitle {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .tagline {
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+  
+  .italic {
+    font-style: italic;
+    margin-top: 10px;
+  }
+  
+  .thankyou {
+    font-weight: bold;
+    color: #78350f;
+    margin-top: 25px;
+  }
+  
+  .qr-placeholder {
+    margin: 20px auto;
+    border: 2px dashed #c4c4c4;
+    width: 130px;
+    height: 130px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: gray;
+  }
+  
+  .qr-info {
+    font-size: 12px;
+    margin-top: 10px;
+  }
+  
+  .website {
+    font-size: 12px;
+    margin-top: 10px;
+    color: #1d4ed8;
+  }
+  
+  .invitation-edit-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .invitation-edit-form .input-field {
+    margin-bottom: 20px;
+  }
+  
+  .invitation-edit-form label {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: inline-block;
+    color: #333;
+  }
+  
+  .invitation-edit-form input,
+  .invitation-edit-form textarea {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    font-family: inherit;
+    margin-top: 5px;
+    box-sizing: border-box;
+  }
+  
+  .invitation-edit-form textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+  
+  .invitation-edit-form input:focus,
+  .invitation-edit-form textarea:focus {
+    outline: none;
+    border-color: #2563eb;
+  }
+  
+  .invitation-edit-form .input-field input,
+  .invitation-edit-form .input-field textarea {
+    width: 100%;
+  }
+  
+  .invitation-edit-form button {
+    align-self: flex-start;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .invitation-edit-form button:hover {
+    background-color: #1d4ed8;
+  }
+  
+  /* RegistrationForm.css */
+.success-message {
+    color: green;
+    font-weight: 600;
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  .center-edit-btn {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+  }
+  

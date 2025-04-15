@@ -1,0 +1,79 @@
+ .home-body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.home-container {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(to top right, #2b004f, #8c1aff);
+  color: white;
+  overflow: hidden;
+}
+
+.hero-section {
+  position: relative;
+  height: 100vh;
+  background: url('H8.jpg') center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-overlay {
+  background: rgba(36, 0, 70, 0.75); /* Deep violet with subtle transparency */
+  padding: 2rem;
+  border-radius: 20px;
+  text-align: center;
+}
+
+/* Removed countdown styles */
+
+.hero-section h1 {
+  margin: 2rem 0;
+  font-size: 2rem;
+}
+
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.event-button {
+  background: #b832f5; /* Vibrant purple with a pink edge */
+  border: none;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  width: 200px;
+}
+
+.admin-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: #ffffff22; /* Semi-transparent white */
+  color: white;
+  border: 1px solid white;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.admin-button:hover {
+  background: #ffffff44;
+}
+
+
+@media screen and (max-width: 768px) {
+  .hero-section h1 {
+    font-size: 1.5rem;
+  }
+}

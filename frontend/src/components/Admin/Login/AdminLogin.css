@@ -1,0 +1,178 @@
+/* Background wrapper with static gradient background */
+.login-wrapper {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #dbeafe 0%, #e0ecff 100%);
+    font-family: 'Poppins', sans-serif;
+    position: relative; /* Ensure toast appears over other content */
+    /* Removed animation */
+}
+
+/* Login card with enhanced animation */
+.login-card {
+    background: #ffffff;
+    padding: 50px 40px;
+    border-radius: 20px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 420px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+/* Fade-in effect for login card */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.login-card h2 {
+    color: #1e293b;
+    font-size: 30px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+/* Inputs with enhanced focus styles */
+.login-card input {
+    width: 100%;
+    padding: 14px 16px;
+    font-size: 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 12px;
+    background-color: #f3f4f6;
+    transition: all 0.3s ease;
+    outline: none;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.login-card input:focus {
+    border-color: #2563eb;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+    transform: translateY(-2px); /* Lift input on focus */
+}
+
+/* Button with ripple effect */
+.login-card button {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: 600;
+    background: linear-gradient(to right, #3b82f6, #60a5fa);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+    letter-spacing: 0.5px;
+}
+
+.login-card button:focus {
+    outline: none;
+}
+
+/* Ripple effect */
+.login-card button:active::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300%;
+    height: 300%;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    animation: rippleEffect 0.6s linear;
+}
+
+@keyframes rippleEffect {
+    to {
+        width: 0;
+        height: 0;
+        opacity: 0;
+    }
+}
+
+.login-card button:hover {
+    background: linear-gradient(to right, #2563eb, #3b82f6);
+    transform: scale(1.02);
+}
+
+.login-card button:active {
+    transform: scale(0.98);
+}
+
+/* Custom scrollbar */
+.login-wrapper::-webkit-scrollbar {
+    width: 8px;
+}
+
+.login-wrapper::-webkit-scrollbar-track {
+    background: #f0f0f0;
+}
+
+.login-wrapper::-webkit-scrollbar-thumb {
+    background: #2563eb;
+    border-radius: 4px;
+}
+
+.login-wrapper::-webkit-scrollbar-thumb:hover {
+    background: #1e40af;
+}
+
+/* Toast Popup Styling */
+.toast-message {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: #f87171;
+    color: white;
+    padding: 12px 18px;
+    border-radius: 8px;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    animation: slideIn 0.5s ease-out, fadeOut 2.5s 2.5s forwards;
+}
+
+/* Animation for Toast (Slide-in + Fade-out) */
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+/* Error message styling */
+.error-message {
+    color: #f87171;
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 10px;
+    text-align: center;
+}

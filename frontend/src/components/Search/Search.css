@@ -1,0 +1,140 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+.search-page {
+  background:#2b003c;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  font-family: 'Poppins', sans-serif;
+  padding: 120px 20px 20px;
+}
+
+/* Sticky Search Bar Container */
+.search-container {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 20px 30px;
+  border-radius: 20px;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+  max-width: 700px;
+  width: 100%;
+
+  /* Sticky on scroll */
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 999;
+}
+
+/* Neon Border Glow */
+.search-container::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  padding: 2px;
+  background: linear-gradient(45deg, #ff00cc, #00ffff, #ff00cc, #00ffff);
+  background-size: 300% 300%;
+  animation: neonGlow 6s ease infinite;
+  z-index: -1;
+  filter: blur(4px);
+}
+
+/* Neon Glow Animation */
+@keyframes neonGlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Search box styling */
+.search-box {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 40px;
+  padding: 12px 20px;
+  flex: 1;
+  color: white;
+  transition: background 0.3s;
+  position: relative;
+}
+
+.search-box:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.search-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 17px;
+  font-weight: 500;
+  outline: none;
+  padding: 6px 12px;
+}
+
+/* Typing animation placeholder (handled by JS) */
+.search-input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+  transition: all 0.3s ease;
+}
+
+.menu-icon,
+.search-icon {
+  color: #ffffffcc;
+  font-size: 22px;
+  margin: 0 10px;
+}
+
+/* Submit Button */
+.submit-btn {
+  background-color: #ffffff;
+  color: #2b003c;
+  font-weight: 600;
+  padding: 12px 24px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s ease;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.submit-btn:hover {
+  background-color: #ff00cc;
+  color: white;
+  box-shadow: 0 0 15px rgba(255, 0, 204, 0.5);
+}
+
+/* Responsive */
+@media screen and (max-width: 600px) {
+  .search-container {
+    flex-direction: column;
+    align-items: stretch;
+    top: 10px;
+    padding: 16px 20px;
+  }
+
+  .submit-btn {
+    width: 100%;
+  }
+
+  .search-box {
+    width: 100%;
+  }
+}
