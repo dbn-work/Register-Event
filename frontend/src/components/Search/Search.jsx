@@ -22,7 +22,7 @@ const Search = () => {
     setCurrentPage(1);
 
     try {
-      const response = await axios.post("http://localhost:5000/api/search", {
+      const response = await axios.post("https://register-event-cwsv.onrender.comcd /api/search", {
         keyword: trimmedKeyword,
       });
 
