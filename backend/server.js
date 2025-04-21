@@ -28,6 +28,9 @@ const adminRoutes = require('./routes/adminRoutes'); // ✅ New
 const verifyAdminToken = require('./middleware/authMiddleware'); // ✅ New
 const userRoutes = require('./routes/userRoutes'); // ✅ New
 const searchRoutes = require('./routes/searchRoutes'); // ✅ New
+const dashboardRoutes = require('./routes/dashboard');
+const updatePasswordRoute = require('./routes/updatePassword');
+
 
 // MongoDB URI from .env
 const mongoURI = process.env.MONGODB_URI;
@@ -99,10 +102,12 @@ app.post("/api/invitation", async (req, res) => {
   }
 });
 
-// ✅ invitation,users,search Routes & Middleware
+// ✅ invitation,users,search, update-password and dashboard Routes & Middleware
 app.use('/api/invitations', invitationRoutes);
 app.use("/api/users", userRoutes); // <-- All import/export/view/edit/delete handled here
 app.use('/api/search', searchRoutes);
+app.use('/api/dashboard', dashboardRoutes);
+app.use('/api/update-password', updatePasswordRoute);
 
 
 // ✅ Admin Routes & Middleware
