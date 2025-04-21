@@ -1,5 +1,257 @@
-.registered-container {
-    padding: 20px;
-    font-size: 18px;
+
+RegisteredUser.css */
+
+/* Container styling */
+.registered-user-container {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.registered-user-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #1e293b;
+}
+
+/* Search bar */
+.search-box {
+  margin-bottom: 20px;
+  text-align: right;
+}
+
+.search-box input {
+  padding: 10px;
+  width: 250px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+/* Import/export controls */
+.import-export-controls {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.import-export-controls input[type="file"] {
+  padding: 6px;
+}
+
+.import-export-controls button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #2563eb;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.import-export-controls button:hover {
+  background-color: #1d4ed8;
+}
+
+/* Table styling */
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.user-table thead {
+  background-color: #f1f5f9;
+}
+
+.user-table th,
+.user-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.user-table tbody tr:hover {
+  background-color: #f9fafb;
+}
+
+.user-table button {
+  margin-right: 6px;
+  padding: 6px 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+/* Edit Button - Blue */
+
+.user-table button:first-child {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.user-table button:first-child:hover {
+  background-color: #2563eb;
+}
+
+/* Delete Button - Red */
+.user-table button:last-child {
+  background-color: #ef4444;
+  color: white;
+}
+
+.user-table button:last-child:hover {
+  background-color: #dc2626;
+}
+
+/* Modal styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(30, 41, 59, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 30px;
+  width: 90%;
+  max-width: 500px;
+  border-radius: 16px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-content h3 {
+  margin-bottom: 20px;
+  text-align: center;
+  color: #1e293b;
+}
+
+.modal-content input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.modal-content .input-error {
+  border-color: #ef4444;
+}
+
+.modal-content .error-text {
+  color: #ef4444;
+  font-size: 0.9rem;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal-buttons button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.modal-buttons button:first-child {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.modal-buttons button:first-child:hover {
+  background-color: #2563eb;
+}
+
+.modal-buttons button:last-child {
+  background-color: #9ca3af;
+  color: white;
+}
+
+.modal-buttons button:last-child:hover {
+  background-color: #6b7280;
+}
+
+/* Pagination */
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.pagination-container li {
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: #f3f4f6;
+  transition: background 0.2s;
+}
+
+.pagination-container li:hover {
+  background-color: #e2e8f0;
+}
+
+.pagination-container .active {
+  background-color: #2563eb;
+  color: white;
+  font-weight: bold;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
   }
-  
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Responsive tweaks */
+@media (max-width: 600px) {
+  .import-export-controls {
+    flex-direction: column;
+  }
+
+  .modal-content {
+    padding: 20px;
+  }
+}
+
+
+.delete-excel-btn {
+  background-color: #f84242;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  margin-left: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+
+.delete-excel-btn:hover {
+  background-color: #e60000;
+}

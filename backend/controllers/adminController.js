@@ -15,7 +15,7 @@ const login = async (req, res) => {
     const token = jwt.sign(
       { username: admin.username, role: admin.role },
       process.env.JWT_SECRET,
-      { expiresIn: "10s" } // Can increase later
+      { expiresIn: "1h" } // Can increase later
     );
 
     res.json({ token, role: admin.role });

@@ -4,22 +4,30 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const cron = require('node-cron');
+const fs = require("fs");
+const path = require("path");
 dotenv.config();
 
 // App Init
 const app = express();
 app.use(cors());
-app.use(express.json());
+
+// ✅ Enhanced JSON & URL-encoded payload parsing
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // Models
 const Registration = require('./models/Registration');
 const Invitation = require('./models/invitationModel');
 const Admin = require('./models/Admin');
+const User = require('./models/userModel'); // ✅ New
 
 // Routes & Controllers
 const invitationRoutes = require('./routes/invitationRoutes');
 const adminRoutes = require('./routes/adminRoutes'); // ✅ New
 const verifyAdminToken = require('./middleware/authMiddleware'); // ✅ New
+const userRoutes = require('./routes/userRoutes'); // ✅ New
+const searchRoutes = require('./routes/searchRoutes'); // ✅ New
 
 // MongoDB URI from .env
 const mongoURI = process.env.MONGODB_URI;
@@ -91,10 +99,15 @@ app.post("/api/invitation", async (req, res) => {
   }
 });
 
+// ✅ invitation,users,search Routes & Middleware
 app.use('/api/invitations', invitationRoutes);
+app.use("/api/users", userRoutes); // <-- All import/export/view/edit/delete handled here
+app.use('/api/search', searchRoutes);
+
 
 // ✅ Admin Routes & Middleware
 app.use('/api/admin', adminRoutes);
+
 
 app.get('/api/admin/protected', verifyAdminToken, (req, res) => {
   res.json({ msg: "You are authorized as Admin" });
