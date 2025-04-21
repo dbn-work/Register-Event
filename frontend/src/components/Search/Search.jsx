@@ -1,191 +1,163 @@
-// src/components/Search.jsx
-import React, { useState } from "react";
-import axios from "axios";
-import { FiMenu, FiSearch } from "react-icons/fi";
-import "./Search.css";
+import React, { useState, useEffect, useRef } from 'react';
+import axios from 'axios';
+import './Search.css';
 
-const Search = () => {
-  const [keyword, setKeyword] = useState("");
-  const [results, setResults] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const resultsPerPage = 5;
+const SearchAutoPrint = () => {
+  const [query, setQuery] = useState('');
+  const [type, setType] = useState('fullName');
+  const [suggestions, setSuggestions] = useState([]);
+  const [activeIndex, setActiveIndex] = useState(-1);
+  const suggestionsRef = useRef([]);
+
+  useEffect(() => {
+    if (!query.trim()) {
+      setSuggestions([]);
+      return;
+    }
+
+    const fetchSuggestions = async () => {
+      try {
+        const res = await axios.get(`/api/search/autocomplete?q=${query}&type=${type}`);
+        setSuggestions(res.data);
+        setActiveIndex(-1);
+      } catch (err) {
+        console.error('Error fetching suggestions:', err);
+      }
+    };
+
+    const delayDebounce = setTimeout(fetchSuggestions, 300);
+    return () => clearTimeout(delayDebounce);
+  }, [query, type]);
+
+  const handleSelect = (user) => {
+    const printableContent = `
+      <html>
+        <head>
+          <title>Print Pass</title>
+          <style>
+            body { font-family: Arial, sans-serif; padding: 20px; margin: 0; background: #f5f5f5; }
+            .badge { border: 2px solid #333; padding: 20px; width: 300px; margin: 10px auto; background: #fff; text-align: center; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); }
+            h2 { margin: 0 0 10px; font-size: 24px; font-weight: bold; color: #333; }
+            p { margin: 5px 0; font-size: 18px; color: #666; }
+          </style>
+        </head>
+        <body>
+          <div class="badge">
+            <h2>${user.name || 'Not Available'}</h2>
+            <p>${user.companyName || 'Not Available'}</p>
+          </div>
+          <script>
+            window.onload = function() {
+              window.print();
+              window.onafterprint = function() {
+                window.close();
+              };
+            };
+          </script>
+        </body>
+      </html>
+    `;
+    const printWindow = window.open('', '_blank', 'width=600,height=400');
+    printWindow.document.open();
+    printWindow.document.write(printableContent);
+    printWindow.document.close();
+    setSuggestions([]);
+    setQuery('');
+  };
 
   const handleSearch = async () => {
-    const trimmedKeyword = keyword.trim();
-    if (!trimmedKeyword) return;
-
-    setIsLoading(true);
-    setError("");
-    setResults([]);
-    setCurrentPage(1);
-
-    try {
-      const response = await axios.post("https://register-event-cwsv.onrender.com/api/search", {
-        keyword: trimmedKeyword,
-      });
-
-      if (response.data.message) {
-        setError(response.data.message);
-      } else {
-        setResults(response.data);
+    if (query.trim()) {
+      try {
+        const res = await axios.get(`/api/search/autocomplete?q=${query}&type=${type}`);
+        const user = res.data[0];
+        if (user) handleSelect(user);
+        else alert('No matching user found.');
+      } catch (err) {
+        console.error('Search error:', err);
+        alert(err.response ? `Server responded with error: ${err.response.status}` : 'Network error occurred.');
       }
-    } catch (error) {
-      console.error("Search error:", error);
-      setError("An error occurred while searching. Please try again.");
-    } finally {
-      setIsLoading(false);
     }
   };
 
-  const cleanValue = (value) => (value && value !== "—" ? value : "Not Available");
-
-  const handlePrint = (item) => {
-    const content = `
-      <div class="ticket">
-        <div class="ticket-content">
-          <div class="line">${cleanValue(item['Customer Name'])}</div>
-          <div class="line">${cleanValue(item['Company Name'])}</div>
-        </div>
-      </div>
-    `;
-  
-    const printWindow = window.open('', '', 'height=600,width=400');
-    printWindow.document.write(`
-      <html>
-        <head>
-          <title>Print Ticket</title>
-          <style>
-            @media print {
-              @page {
-                size: 4in 6in;
-                margin: 0;
-              }
-              body {
-                margin: 0;
-                padding: 0;
-                font-family: "Segoe UI", sans-serif;
-                background: #fff;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                height: 100vh;
-              }
-            }
-  
-            body {
-              margin: 0;
-              padding: 0;
-              font-family: "Segoe UI", sans-serif;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              height: 100vh;
-              background: #fff;
-            }
-  
-            .ticket {
-              width: 100%;
-              height: 100%;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-            }
-  
-            .ticket-content {
-              text-align: center;
-            }
-  
-            .ticket-content .line {
-              font-size: 26px;
-              font-weight: bold;
-              margin: 10px 0;
-              color: #000;
-            }
-          </style>
-        </head>
-        <body>${content}</body>
-      </html>
-    `);
-    printWindow.document.close();
-    printWindow.print();
+  const highlightMatch = (text) => {
+    const regex = new RegExp(`(${query})`, 'gi');
+    return text.replace(regex, '<mark>$1</mark>');
   };
-  
 
-  const indexOfLastResult = currentPage * resultsPerPage;
-  const indexOfFirstResult = indexOfLastResult - resultsPerPage;
-  const currentResults = results.slice(indexOfFirstResult, indexOfLastResult);
-  const totalPages = Math.ceil(results.length / resultsPerPage);
+  const handleKeyDown = (e) => {
+    if (suggestions.length === 0) return;
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      setActiveIndex((prev) => (prev + 1) % suggestions.length);
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      setActiveIndex((prev) => (prev - 1 + suggestions.length) % suggestions.length);
+    } else if (e.key === 'Enter') {
+      if (activeIndex >= 0) {
+        handleSelect(suggestions[activeIndex]);
+      } else {
+        handleSearch();
+      }
+    }
+  };
+
+  const clearSearch = () => {
+    setQuery('');
+    setSuggestions([]);
+    setActiveIndex(-1);
+  };
 
   return (
-    <div className="search-page">
-      <div className="search-container">
-        <div className="search-box">
-          <FiMenu className="menu-icon" />
-          <input
-            type="text"
-            className="search-input"
-            placeholder="Search by name or company"
-            value={keyword}
-            onChange={(e) => setKeyword(e.target.value)}
-          />
-          <FiSearch className="search-icon" onClick={handleSearch} />
-        </div>
-        <button className="submit-btn" onClick={handleSearch}>Search</button>
+    <div className="search-container">
+      <h2>Search</h2>
+
+      <select
+        value={type}
+        onChange={(e) => setType(e.target.value)}
+        className="dropdown"
+      >
+        <option value="fullName">Full Name</option>
+        <option value="email">Email</option>
+        <option value="companyName">Company Name</option>
+        <option value="contactNo">Contact Number</option>
+      </select>
+
+      <div className="search-box">
+        <input
+          type="text"
+          placeholder={`Search by ${type}...`}
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          className="search-input"
+          onKeyDown={handleKeyDown}
+        />
+        {query && (
+          <button className="clear-btn" onClick={clearSearch} title="Clear search">✕</button>
+        )}
+        <button onClick={handleSearch} className="search-btn" title="Click to search">
+          Search
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
+            <path d="M10 2a8 8 0 1 0 8 8 8 8 0 0 0-8-8zm0 14a6 6 0 1 1 6-6 6 6 0 0 1-6 6zm12 6l-5.6-5.6"></path>
+          </svg>
+        </button>
       </div>
 
-      <div className="search-results-wrapper">
-        {isLoading && <div className="spinner">⏳ Searching...</div>}
-        {error && <p className="error-message">{error}</p>}
-
-        {!isLoading && currentResults.length > 0 && (
-          <div className="results">
-            <h3>Search Results:</h3>
-            <div className="results-grid">
-              {currentResults.map((item, index) => (
-                <div className="result-item" key={index}>
-                  <div className="customer-info">
-                    <span className="label">Customer Name:</span>
-                    <span className="value">{cleanValue(item["Customer Name"])}</span>
-                  </div>
-                  <div className="company-info">
-                    <span className="label">Company Name:</span>
-                    <span className="value">{cleanValue(item["Company Name"])}</span>
-                  </div>
-                  <button className="print-btn" onClick={() => handlePrint(item)}>Print</button>
-                </div>
-              ))}
-            </div>
-
-            <div className="pagination-controls">
-              <button
-                onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-                disabled={currentPage === 1}
-                className="submit-btn"
-              >
-                Previous
-              </button>
-              <span className="page-info">
-                Page {currentPage} of {totalPages}
-              </span>
-              <button
-                onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-                disabled={currentPage === totalPages}
-                className="submit-btn"
-              >
-                Next
-              </button>
-            </div>
-          </div>
-        )}
-
-        {!isLoading && results.length === 0 && keyword && !error && (
-          <p className="no-results">No results found.</p>
-        )}
-      </div>
+      {suggestions.length > 0 && (
+        <ul className="suggestions-list">
+          {suggestions.map((user, index) => (
+            <li
+              key={user._id}
+              ref={(el) => (suggestionsRef.current[index] = el)}
+              onClick={() => handleSelect(user)}
+              className={`suggestion-item ${index === activeIndex ? 'active' : ''}`}
+              dangerouslySetInnerHTML={{ __html: highlightMatch(user.name || '') }}
+            />
+          ))}
+        </ul>
+      )}
     </div>
   );
 };
 
-export default Search;
+export default SearchAutoPrint;
