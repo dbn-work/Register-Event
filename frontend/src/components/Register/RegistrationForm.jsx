@@ -13,7 +13,7 @@ const RegistrationForm = () => {
   });
 
   const [errors, setErrors] = useState({});
-  const successMessage = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
   const handleChange = (e) => {
     setFormData({
@@ -55,7 +55,7 @@ const RegistrationForm = () => {
 
         const data = await response.json();
         if (response.ok) {
-          alert('✅ Form submitted successfully!');
+          setSuccessMessage('✅ Form submitted successfully!');
           console.log('✅ Server Response:', data);
           setFormData({
             fullName: '',

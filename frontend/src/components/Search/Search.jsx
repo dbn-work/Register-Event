@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import './Search.css';
+import NotFound404 from './components/NotFound404/NotFound404';
 
 const SearchAutoPrint = () => {
   const [query, setQuery] = useState('');
@@ -137,9 +138,6 @@ const SearchAutoPrint = () => {
         )}
         <button onClick={handleSearch} className="search-btn" title="Click to search">
           Search
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
-            <path d="M10 2a8 8 0 1 0 8 8 8 8 0 0 0-8-8zm0 14a6 6 0 1 1 6-6 6 6 0 0 1-6 6zm12 6l-5.6-5.6"></path>
-          </svg>
         </button>
       </div>
 
