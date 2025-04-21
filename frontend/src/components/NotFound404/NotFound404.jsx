@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
-import "./NotFound404.css";
+import "./NotFound.css";
 
 const NotFound404 = () => {
   return (
