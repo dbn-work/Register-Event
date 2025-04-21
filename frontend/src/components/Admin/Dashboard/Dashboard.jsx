@@ -30,7 +30,7 @@ const Dashboard = () => {
       <div className="subtitle">Registration Details</div>
       <div className="stats-grid">
         <StatCard color="blue" icon="👥" label="Total Registration" value={counts.total} />
-        <StatCard color="green" icon="🔍" label="Search" value={counts.userCount} />
+        <StatCard color="green" icon="🔍" label="Registered User" value={counts.userCount} />
         <StatCard color="orange" icon="➕" label="New Registration" value={counts.registrationCount} />
         <StatCard color="red" icon="💳" label="Scan Card" value={124} /> {/* You can also make this dynamic later */}
       </div>

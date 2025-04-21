@@ -8,7 +8,7 @@ router.post('/', async (req, res) => {
   const { oldPassword, newPassword } = req.body;
   try {
     // Find the admin (adjust query as needed)
-    const admin = await Admin.findOne({ username: 'admin' }); // or use req.user if using auth
+    const admin = await Admin.findOne({ username: 'admin@example.com' }); // or use req.user if using auth
     if (!admin) return res.status(404).json({ message: 'Admin not found' });
 
     // Check old password
