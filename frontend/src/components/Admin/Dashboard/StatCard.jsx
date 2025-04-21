@@ -1,5 +1,4 @@
 //StatCard.jsx
-
 import React from 'react';
 import './StatCard.css';
 
