@@ -17,7 +17,7 @@ const SearchAutoPrint = () => {
 
     const fetchSuggestions = async () => {
       try {
-        const res = await axios.get(`/api/search/autocomplete?q=${query}&type=${type}`);
+        const res = await axios.get(`https://register-event-cwsv.onrender.com/api/search/autocomplete?q=${query}&type=${type}`);
         setSuggestions(res.data);
         setActiveIndex(-1);
       } catch (err) {
@@ -68,7 +68,7 @@ const SearchAutoPrint = () => {
   const handleSearch = async () => {
     if (query.trim()) {
       try {
-        const res = await axios.get(`/api/search/autocomplete?q=${query}&type=${type}`);
+        const res = await axios.get(`https://register-event-cwsv.onrender.com/api/search/autocomplete?q=${query}&type=${type}`);
         const user = res.data[0];
         if (user) handleSelect(user);
         else alert('No matching user found.');
