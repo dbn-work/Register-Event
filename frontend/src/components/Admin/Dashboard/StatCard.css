@@ -1,38 +1,37 @@
 /* StatCard.css */
 .stat-card {
-    padding: 20px;
-    border-radius: 10px;
-    color: white;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  .stat-card .icon {
-    font-size: 2.5rem;
-  }
-  
-  .stat-card .info .value {
-    font-size: 1.8rem;
-    font-weight: bold;
-  }
-  
-  .stat-card .info .label {
-    font-size: 1rem;
-    opacity: 0.8;
-  }
-  
-  .stat-card.blue {
-    background: #007bff;
-  }
-  .stat-card.green {
-    background: #28a745;
-  }
-  .stat-card.orange {
-    background: #fd7e14;
-  }
-  .stat-card.red {
-    background: #dc3545;
-  }
-  
+  padding: 20px;
+  border-radius: 10px;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card .icon {
+  font-size: 2.5rem;
+}
+
+.stat-card .info .value {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.stat-card .info .label {
+  font-size: 1rem;
+  opacity: 0.8;
+}
+
+.stat-card.blue {
+  background: #007bff;
+}
+.stat-card.green {
+  background: #28a745;
+}
+.stat-card.orange {
+  background: #fd7e14;
+}
+.stat-card.red {
+  background: #dc3545;
+}

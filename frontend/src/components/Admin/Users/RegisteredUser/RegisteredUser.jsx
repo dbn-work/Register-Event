@@ -308,8 +308,6 @@ const RegisteredUser = () => {
           </div>
         </div>
       )}
-
-      <ToastContainer />
     </div>
   );
 };
