@@ -18,6 +18,7 @@ import ConfirmationPage from './components/Admin/Invitations/Create-Invitations/
 import ViewInvitation from './components/Admin/Invitations/View-Invitation/ViewInvitation';
 import UpdatePassword from './components/Admin/Settings/UpdatePassword';
 import Logout from './components/Admin/Settings/Logout';
+import NotFound404 from './components/NotFound404/NotFound404';
 
 function App() {
   return (
@@ -129,6 +130,10 @@ function App() {
               </ProtectedRoute>
             }
           />
+
+          {/* Not Found Route */}
+          <Route path="*" element={<NotFound404 />} />
+          <Route component={NotFound404} />
         </Routes>
       </Router>
 
