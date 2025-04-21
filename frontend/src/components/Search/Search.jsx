@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import './Search.css';
-import NotFound404 from './components/NotFound404/NotFound404';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; 
 
 const SearchAutoPrint = () => {
   const [query, setQuery] = useState('');
@@ -67,16 +68,18 @@ const SearchAutoPrint = () => {
   };
 
   const handleSearch = async () => {
-    if (query.trim()) {
-      try {
-        const res = await axios.get(`https://register-event-cwsv.onrender.com/api/search/autocomplete?q=${query}&type=${type}`);
-        const user = res.data[0];
-        if (user) handleSelect(user);
-        else alert('No matching user found.');
-      } catch (err) {
-        console.error('Search error:', err);
-        alert(err.response ? `Server responded with error: ${err.response.status}` : 'Network error occurred.');
-      }
+    if (!query.trim()) {
+      toast.error('Please enter a search query.');
+      return;
+    }
+    try {
+      const res = await axios.get(`https://register-event-cwsv.onrender.com/api/search/autocomplete?q=${query}&type=${type}`);
+      const user = res.data[0];
+      if (user) handleSelect(user);
+      else toast.error('No matching user found.');
+    } catch (err) {
+      console.error('Search error:', err);
+      toast.error(err.response ? `Server responded with error: ${err.response.status}` : 'Network error occurred.');
     }
   };
 
@@ -111,6 +114,7 @@ const SearchAutoPrint = () => {
 
   return (
     <div className="search-container">
+      <ToastContainer />
       <h2>Search</h2>
 
       <select
