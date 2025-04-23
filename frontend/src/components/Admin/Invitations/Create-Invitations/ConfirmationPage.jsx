@@ -6,13 +6,13 @@ const ConfirmationPage = () => {
   const [isEditing, setIsEditing] = useState(false);
 
   const [eventData, setEventData] = useState({
-    title: "2023 INDIA DEBT CAPITAL MARKET SUMMIT",
-    tagline: "THE “ONWARDS & UPWARDS” PATH OF THE INDIAN BOND MARKET",
-    date: "Friday 1st Dec, 2023",
-    time: "9.00 a.m. to 7.00 p.m.",
-    venue: "Jasmine 1, 3rd Floor, Jio Convention Centre, Gate No. 20, BKC, Mumbai",
-    registrationTime: "8.30 a.m.",
-    website: "www.indiadebtcapitalmarketsummit.com"
+    title: "your event title",
+    tagline: "your event tagline",
+    date: "your event date",
+    time: "your event time",
+    venue: "your event venue",
+    registrationTime: "your registration time",
+    website: "your webiste"
   });
 
   const handleChange = (e) => {

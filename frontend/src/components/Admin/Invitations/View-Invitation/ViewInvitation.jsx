@@ -1,32 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './ViewInvitation.css';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FaPaperPlane, FaTrashAlt, FaEye, FaEdit } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
-
-export const sendInvitationToAllUsers = async (id) => {
-  try {
-    const res = await axios.post(`https://register-event-cwsv.onrender.com/api/invitations/send/${id}`);
-    toast.success(res.data.message || 'Invitations sent successfully!');
-  } catch (error) {
-    toast.error(
-      error.response?.data?.message || 'Failed to send invitations. Try again later.'
-    );
-  }
-};
 
 const ViewInvitation = () => {
   const [invitations, setInvitations] = useState([]);
   const [selected, setSelected] = useState(null);
   const [editForm, setEditForm] = useState({});
+  const [loadingId, setLoadingId] = useState(null); // <-- loading state
 
   useEffect(() => {
     fetchInvitations();
   }, []);
 
-const fetchInvitations = async () => {
+  const fetchInvitations = async () => {
     try {
       const response = await axios.get('https://register-event-cwsv.onrender.com/api/invitations');
       const currentDate = new Date();
@@ -41,7 +31,7 @@ const fetchInvitations = async () => {
     }
   };
 
-const handleDelete = async (id) => {
+  const handleDelete = async (id) => {
     try {
       await axios.delete(`https://register-event-cwsv.onrender.com/api/invitations/${id}`);
       setInvitations(invitations.filter(inv => inv._id !== id));
@@ -53,62 +43,79 @@ const handleDelete = async (id) => {
 
   const handleUpdate = async () => {
     try {
-      console.log('Selected ID:', selected?._id);
-      console.log('Edit Form:', editForm);
-
       const res = await axios.put(
         `https://register-event-cwsv.onrender.com/api/invitations/${selected._id}`,
         editForm
       );
-
-      console.log('Update response:', res.data);
-
       setInvitations(prev =>
         prev.map(inv => (inv._id === selected._id ? { ...inv, ...editForm } : inv))
       );
       toast.success('Invitation updated');
       setSelected(null);
     } catch (error) {
-      console.error('Update error:', error.response?.data || error.message);
       toast.error('Error updating invitation');
+    }
+  };
+
+  const sendInvitationToAllUsers = async (id) => {
+    setLoadingId(id);
+    try {
+      const res = await axios.post(`https://register-event-cwsv.onrender.com/api/invitations/send/${id}`);
+      toast.success('Invitations sent successfully!');
+    } catch (error) {
+      toast.error(
+        error.response?.data?.message || 'Failed to send invitations. Try again later.'
+      );
+    } finally {
+      setLoadingId(null);
     }
   };
 
   return (
     <motion.div
       className="invitation-card-container"
-      initial={{ opacity: 0 }} // Fade-in for page load
-      animate={{ opacity: 1 }} // Fade-in completes
-      exit={{ opacity: 0 }} // Fade-out when exiting
-      transition={{ duration: 1 }} // Duration of the fade-in effect
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 1 }}
     >
       <h2>All Invitations</h2>
       <div className="card-grid">
         <AnimatePresence>
           {invitations.map((inv, index) => {
-            // Calculate the expiry date for display
             const expiry = new Date(inv.createdAt);
             expiry.setDate(expiry.getDate() + 15);
             return (
               <motion.div
                 key={inv._id}
                 className="invitation-card"
-                initial={{ opacity: 0, y: 20 }} // Cards start off-screen (opacity: 0, y: 20)
-                animate={{ opacity: 1, y: 0 }} // Fade-in and move to original position
-                exit={{ opacity: 0, scale: 0.95 }} // Shrink and fade-out on removal
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95 }}
                 transition={{
                   duration: 0.3,
-                  delay: index * 0.1, // Staggered delay for each card (based on index)
+                  delay: index * 0.1,
                 }}
               >
                 <h3>{inv.title}</h3>
                 <p><strong>Date:</strong> {inv.date}</p>
                 <p><strong>Time:</strong> {inv.time}</p>
-                {/* Show Expiry Date */}
                 <p><strong>Expiry Date:</strong> {expiry.toLocaleDateString()}</p>
                 <div className="card-buttons">
-                  <button className="send-btn" onClick={() => sendInvitationToAllUsers(inv._id)}>
-                    <FaPaperPlane /> Send
+                  <button
+                    className="send-btn"
+                    onClick={() => sendInvitationToAllUsers(inv._id)}
+                    disabled={loadingId === inv._id}
+                  >
+                    {loadingId === inv._id ? (
+                      <>
+                        <span className="spinner" /> Sending...
+                      </>
+                    ) : (
+                      <>
+                        <FaPaperPlane /> Send
+                      </>
+                    )}
                   </button>
                   <button className="view-btn" onClick={() => setSelected(inv)}>
                     <FaEye /> View
@@ -152,7 +159,6 @@ const handleDelete = async (id) => {
                   }
                 />
               ))}
-              {/* Display the expiry date in the modal */}
               <p><strong>Expiry Date:</strong> {new Date(new Date(selected.createdAt).setDate(new Date(selected.createdAt).getDate() + 15)).toLocaleDateString()}</p>
               <div className="modal-buttons">
                 <button onClick={handleUpdate}>
@@ -164,8 +170,6 @@ const handleDelete = async (id) => {
           </motion.div>
         )}
       </AnimatePresence>
-
-      <ToastContainer position="top-right" autoClose={2500} />
     </motion.div>
   );
 };
