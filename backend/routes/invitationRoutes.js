@@ -99,14 +99,10 @@ router.post('/send/:invitationId', async (req, res) => {
     res.status(500).json({ message: 'Error sending emails' });
   }
 });
-
 // GET /api/invitations -> Fetch all invitations
 router.get("/", getAllInvitations);
-
 // PUT /api/invitations/:id -> Update invitation by ID
 router.put("/:id", updateInvitation); // ✅ Added this
-
 // DELETE /api/invitations/:id -> Delete invitation by ID
 router.delete("/:id", deleteInvitation);
-
 module.exports = router;
