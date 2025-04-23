@@ -5,7 +5,17 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FaPaperPlane, FaTrashAlt, FaEye, FaEdit } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
-import { sendInvitationToAllUsers } from './SendInvitation';
+
+export const sendInvitationToAllUsers = async (id) => {
+  try {
+    const res = await axios.post(`https://register-event-cwsv.onrender.com/api/invitations/send/${id}`);
+    toast.success(res.data.message || 'Invitations sent successfully!');
+  } catch (error) {
+    toast.error(
+      error.response?.data?.message || 'Failed to send invitations. Try again later.'
+    );
+  }
+};
 
 const ViewInvitation = () => {
   const [invitations, setInvitations] = useState([]);
@@ -16,7 +26,7 @@ const ViewInvitation = () => {
     fetchInvitations();
   }, []);
 
-  const fetchInvitations = async () => {
+const fetchInvitations = async () => {
     try {
       const response = await axios.get('https://register-event-cwsv.onrender.com/api/invitations');
       const currentDate = new Date();
@@ -31,7 +41,7 @@ const ViewInvitation = () => {
     }
   };
 
-  const handleDelete = async (id) => {
+const handleDelete = async (id) => {
     try {
       await axios.delete(`https://register-event-cwsv.onrender.com/api/invitations/${id}`);
       setInvitations(invitations.filter(inv => inv._id !== id));
