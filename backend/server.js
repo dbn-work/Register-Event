@@ -90,17 +90,17 @@ app.put('/api/newusers/:id', async (req, res) => {
 });
 
 // ✅ Invitation Routes
-app.post("/api/invitation", async (req, res) => {
-  try {
-    const invitationData = req.body;
-    const newInvitation = new Invitation(invitationData);
-    await newInvitation.save();
-    res.status(201).json({ message: "Invitation saved successfully!" });
-  } catch (err) {
-    console.error("❌ Error saving invitation:", err);
-    res.status(500).json({ error: "Server error while saving invitation" });
-  }
-});
+// app.post("/api/invitation", async (req, res) => {
+//   try {
+//     const invitationData = req.body;
+//     const newInvitation = new Invitation(invitationData);
+//     await newInvitation.save();
+//     res.status(201).json({ message: "Invitation saved successfully!" });
+//   } catch (err) {
+//     console.error("❌ Error saving invitation:", err);
+//     res.status(500).json({ error: "Server error while saving invitation" });
+//   }
+// });
 
 // ✅ invitation,users,search, update-passwordand dashboard Routes & Middleware
 app.use('/api/invitations', invitationRoutes);
