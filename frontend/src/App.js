@@ -8,7 +8,6 @@ import Home from './components/Home/Home';
 import Register from './components/Register/RegistrationForm';
 import Search from './components/Search/Search';
 import Sidebar from './components/Layout/Sidebar';
-
 import Dashboard from './components/Admin/Dashboard/Dashboard';
 import RegisteredUser from './components/Admin/Users/RegisteredUser/RegisteredUser';
 import NewUser from './components/Admin/Users/NewUser/NewUser';
@@ -116,7 +115,7 @@ function App() {
               </ProtectedRoute>
             }
           />
-
+          
           <Route
             path="/admin/logout"
             element={
