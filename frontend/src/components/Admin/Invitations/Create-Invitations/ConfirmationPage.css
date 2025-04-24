@@ -185,4 +185,23 @@
     justify-content: center;
     margin-top: 30px;
   }
-  
+
+.input-field input,
+.input-field textarea {
+  color: #222 !important;      /* Dark text */
+  background: #fff !important; /* White background */
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  margin-top: 0.25rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.input-field label {
+  color: #3730a3;
+  font-weight: 600;
+  margin-bottom: 0.2rem;
+  display: block;
+}
