@@ -25,7 +25,7 @@ const RegisteredUser = () => {
 
   const fetchUsers = async () => {
     try {
-      const res = await axios.get("https://register-event-cwsv.onrender.com/api/users");
+      const res = await axios.get("http://localhost:5000/api/users");
       setUsers(res.data);
     } catch (err) {
       console.error(err);
@@ -64,7 +64,7 @@ const RegisteredUser = () => {
     try {
       const { ideac, name, companyName, email, phone } = editedUser;
       await axios.put(
-        `https://register-event-cwsv.onrender.com/api/users/${editId}`,
+        `http://localhost:5000/api/users/${editId}`,
         { ideac, name, companyName, email, phone }
       );
       toast.success("User updated successfully!");
@@ -85,7 +85,7 @@ const RegisteredUser = () => {
   const handleDelete = async (id) => {
     if (window.confirm("Delete user?")) {
       try {
-        await axios.delete(`https://register-event-cwsv.onrender.com/api/users/${id}`);
+        await axios.delete(`http://localhost:5000/api/users/${id}`);
         fetchUsers();
         toast.success("User deleted!");
       } catch (error) {
@@ -99,7 +99,7 @@ const RegisteredUser = () => {
   const handleDeleteAll = async () => {
   if (window.confirm("Are you sure you want to delete all users?")) {
     try {
-      await axios.delete("https://register-event-cwsv.onrender.com/api/users/deleteAll");
+      await axios.delete("http://localhost:5000/api/users/deleteAll");
       toast.success("All users deleted!");
       fetchUsers(); // Refresh list after deletion
     } catch (error) {
@@ -120,7 +120,7 @@ const RegisteredUser = () => {
 
     try {
       setLoading(true);
-      await axios.post("https://register-event-cwsv.onrender.com/api/users/import", formData, {
+      await axios.post("http://localhost:5000/api/users/import", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       setFile(null);
@@ -135,7 +135,7 @@ const RegisteredUser = () => {
 
   const handleExport = async () => {
     try {
-      const response = await axios.get('https://register-event-cwsv.onrender.com/api/users/export', {
+      const response = await axios.get('http://localhost:5000/api/users/export', {
         responseType: 'blob',
       });
 
