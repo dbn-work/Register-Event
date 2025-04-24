@@ -49,8 +49,8 @@ return (
       <div className="admin-login-box">
         <h2>Admin Panel</h2>
         <form onSubmit={handleSubmit}>
-          <div className={`input-field ${errors.username ? "error" : ""}`}>
-            <FaUser className="input-icon" />
+          <div className={`admin-input-field ${errors.username ? "error" : ""}`}>
+            <FaUser className="admin-input-icon" />
             <input
               type="text"
               placeholder="Admin Username"
@@ -59,8 +59,8 @@ return (
             />
           </div>
           {errors.username && <p className="error-text">{errors.username}</p>}
-          <div className={`input-field ${errors.password ? "error" : ""}`}>
-            <FaLock className="input-icon" />
+          <div className={`admin-input-field ${errors.password ? "error" : ""}`}>
+            <FaLock className="admin-input-icon" />
             <input
               type="password"
               placeholder="Password"

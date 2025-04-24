@@ -147,3 +147,35 @@
         font-size: 14px;
     }
 }
+
+/* Admin Input Fields */
+.admin-input-field {
+    position: relative;
+    margin-bottom: 1.2rem;
+}
+
+.admin-input-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6366f1;
+    font-size: 1.1rem;
+    pointer-events: none;
+}
+
+.admin-input-field input {
+    width: 100%;
+    padding: 0.7rem 1rem 0.7rem 2.5rem; /* left padding for icon */
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 1rem;
+    background: #fff;
+    color: #222;
+    outline: none;
+    transition: border 0.2s;
+}
+
+.admin-input-field.error input {
+    border-color: #ef4444;
+}
