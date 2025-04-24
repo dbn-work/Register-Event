@@ -14,7 +14,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchCounts = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/dashboard/counts');
+        const res = await axios.get('https://register-event-cwsv.onrender.com/api/dashboard/counts');
         setCounts(res.data);
       } catch (err) {
         console.error('Failed to fetch counts:', err);

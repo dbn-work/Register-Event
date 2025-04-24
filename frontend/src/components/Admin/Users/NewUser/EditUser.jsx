@@ -12,7 +12,7 @@ const EditUser = ({ editUser, formData, setFormData, setEditUser, refreshUsers }
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:5000/api/newusers/${editUser}`, formData);
+      await axios.put(`https://register-event-cwsv.onrender.com/api/newusers/${editUser}`, formData);
       toast.success('User updated successfully');
       setEditUser(null);
       refreshUsers();

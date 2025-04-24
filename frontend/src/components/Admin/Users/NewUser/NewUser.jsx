@@ -18,7 +18,7 @@ const NewUser = () => {
   });
 
   const fetchUsers = () => {
-   axios.get('http://localhost:5000/api/newusers')
+   axios.get('https://register-event-cwsv.onrender.com/api/newusers')
   .then(res => setNewUsers(res.data))
   .catch(err => {
     console.error('Error fetching new users:', err);

@@ -18,7 +18,7 @@ const ViewInvitation = () => {
 
   const fetchInvitations = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/invitations');
+      const response = await axios.get('https://register-event-cwsv.onrender.com/api/invitations');
       const currentDate = new Date();
       const filtered = response.data.filter(inv => {
         const expiry = new Date(inv.createdAt);
@@ -33,7 +33,7 @@ const ViewInvitation = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/invitations/${id}`);
+      await axios.delete(`https://register-event-cwsv.onrender.com/api/invitations/${id}`);
       setInvitations(invitations.filter(inv => inv._id !== id));
       toast.success('Invitation deleted');
     } catch (error) {
@@ -44,7 +44,7 @@ const ViewInvitation = () => {
   const handleUpdate = async () => {
     try {
       const res = await axios.put(
-        `http://localhost:5000/api/invitations/${selected._id}`,
+        `https://register-event-cwsv.onrender.com/api/invitations/${selected._id}`,
         editForm
       );
       setInvitations(prev =>
@@ -60,7 +60,7 @@ const ViewInvitation = () => {
   const sendInvitationToAllUsers = async (id) => {
     setLoadingId(id);
     try {
-      const res = await axios.post(`http://localhost:5000/api/invitations/send/${id}`);
+      const res = await axios.post(`https://register-event-cwsv.onrender.com/api/invitations/send/${id}`);
       toast.success('Invitations sent successfully!');
     } catch (error) {
       toast.error(

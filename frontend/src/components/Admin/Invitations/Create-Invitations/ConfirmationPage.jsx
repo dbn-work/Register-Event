@@ -24,12 +24,12 @@ const ConfirmationPage = () => {
     try {
       if (eventData._id) {
         // If _id exists, it's an update
-        const response = await axios.put(`http://localhost:5000/api/invitations/${eventData._id}`, eventData);
+        const response = await axios.put(`https://register-event-cwsv.onrender.com/api/invitations/${eventData._id}`, eventData);
         console.log("Updated successfully:", response.data);
         alert("✏️ Invitation updated successfully!");
       } else {
         // Else it's a new creation
-        const response = await axios.post("http://localhost:5000/api/invitations", eventData);
+        const response = await axios.post("https://register-event-cwsv.onrender.com/api/invitations", eventData);
         console.log("Created successfully:", response.data);
         alert("🎉 Invitation saved to MongoDB successfully!");
         setEventData({ ...response.data }); // store _id in eventData so further edits become updates

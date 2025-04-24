@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 const DeleteUser = ({ userId, onDelete }) => {
   const handleDelete = () => {
     if (window.confirm("Are you sure you want to delete this user?")) {
-        axios.delete(`http://localhost:5000/api/newusers/${userId}`)
+        axios.delete(`https://register-event-cwsv.onrender.com/api/newusers/${userId}`)
         .then(() => {
           toast.success('User deleted successfully!');
           onDelete();
