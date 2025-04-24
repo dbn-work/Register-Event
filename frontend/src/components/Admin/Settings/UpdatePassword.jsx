@@ -42,7 +42,7 @@ const handleSubmit = async (e) => {
   }
 
   try {
-    const res = await axios.post('http://localhost:5000/api/update-password', {
+    const res = await axios.post('https://register-event-cwsv.onrender.com/api/update-password', {
       oldPassword: form.oldPassword,
       newPassword: form.newPassword
     });
