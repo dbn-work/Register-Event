@@ -3,7 +3,7 @@ export const isTokenValid = async () => {
     if (!token) return false;
     try 
      {
-      const res = await fetch("https://register-event-cwsv.onrender.com/api/admin/protected", {
+      const res = await fetch("http://localhost:5000/api/admin/protected", {
         headers: { Authorization: `Bearer ${token}` },
      });
       return res.ok;

@@ -20,7 +20,7 @@ const handleSubmit = async (e) => {
     setErrors(validationErrors);
     if (Object.keys(validationErrors).length === 0) {
       try {
-        const res = await fetch("https://register-event-cwsv.onrender.com/api/admin/login", {
+        const res = await fetch("http://localhost:5000/api/admin/login", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ username, password }),
@@ -31,16 +31,12 @@ const handleSubmit = async (e) => {
           toast.success("Login successful!");
           navigate("/admin/dashboard");
         } else {
-        toast.error(data.msg || "Login failed!");
+          toast.error(data.msg || "Login failed!");
         }
       } catch (err) {
         console.error(err);
         toast.error("An error occurred. Please try again.");
       }
-    } else {
-      // Show validation errors as toast messages
-      if (validationErrors.username) toast.error(validationErrors.username);
-      if (validationErrors.password) toast.error(validationErrors.password);
     }
   };
 

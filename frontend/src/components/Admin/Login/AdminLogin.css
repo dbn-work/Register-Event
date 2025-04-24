@@ -10,7 +10,6 @@
     box-sizing: border-box;
 }
 
-/* Login Box */
 .admin-login-box {
     background: linear-gradient(135deg, #6a11cbcc 0%, #2575fccc 100%);
     border-radius: 20px;
@@ -23,7 +22,6 @@
     text-align: center;
 }
 
-/* Heading */
 .admin-login-box h2 {
     margin-bottom: 25px;
     font-size: 30px;
@@ -31,43 +29,43 @@
     color: #fff;
 }
 
-/* Input Fields */
-.input-field {
+.admin-input-field {
     position: relative;
-    margin-bottom: 20px;
+    margin-bottom: 1.2rem;
 }
 
-.input-field input {
-    width: 100%;
-    padding: 12px 15px 12px 42px;
-    border: none;
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.2);
-    color: #fff;
-    font-size: 15px;
-    outline: none;
-    transition: all 0.3s ease;
-    box-sizing: border-box;
-}
-
-.input-field input::placeholder {
-    color: #e0e0e0;
-}
-
-.input-field input:focus {
-    background: rgba(255, 255, 255, 0.3);
-}
-
-.input-icon {
+.admin-input-icon {
     position: absolute;
+    left: 14px;
     top: 50%;
-    left: 15px;
     transform: translateY(-50%);
-    color: #dcdcdc;
-    font-size: 16px;
+    color: #6366f1;
+    font-size: 1.1rem;
+    pointer-events: none;
 }
 
-/* Error Handling */
+.admin-input-field input {
+    width: 85%;
+    padding: 0.7rem 1rem 0.7rem 2.5rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 1rem;
+    background: #fff;
+    color: #222;
+    outline: none;
+    transition: border 0.2s;
+}
+
+.admin-input-field input::placeholder {
+    color: #b0b3b8 !important;
+    font-weight: 400 !important;
+    opacity: 1;
+}
+
+.admin-input-field.error input {
+    border-color: #ef4444;
+}
+
 .error-text {
     color: #ff6b6b;
     font-size: 13px;
@@ -77,11 +75,6 @@
     padding-left: 5px;
 }
 
-.error input {
-    border: 1px solid #ff6b6b;
-}
-
-/* Button */
 .login-btn {
     width: 100%;
     padding: 12px;
@@ -102,14 +95,12 @@
     box-shadow: 0 0 10px #2575fc;
 }
 
-/* Footer Note */
 .admin-note {
     font-size: 12px;
     margin-top: 15px;
     color: #dddddd;
 }
 
-/* Animation */
 @keyframes scaleIn {
     0% {
       transform: scale(0.95);
@@ -121,7 +112,6 @@
     }
 }
 
-/* Responsive */
 @media (max-width: 480px) {
     .admin-login-container {
         padding: 5px;
@@ -138,44 +128,12 @@
         font-size: 14px;
         padding: 10px;
     }
-    .input-field input {
+    .admin-input-field input {
         font-size: 14px;
-        padding-left: 38px;
+        padding-left: 2.2rem;
     }
-    .input-icon {
+    .admin-input-icon {
         left: 10px;
         font-size: 14px;
     }
-}
-
-/* Admin Input Fields */
-.admin-input-field {
-    position: relative;
-    margin-bottom: 1.2rem;
-}
-
-.admin-input-icon {
-    position: absolute;
-    left: 14px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #6366f1;
-    font-size: 1.1rem;
-    pointer-events: none;
-}
-
-.admin-input-field input {
-    width: 80%;
-    padding: 0.7rem 1rem 0.7rem 2.5rem; /* left padding for icon */
-    border: 1px solid #cbd5e1;
-    border-radius: 6px;
-    font-size: 1rem;
-    background: #fff;
-    color: #222;
-    outline: none;
-    transition: border 0.2s;
-}
-
-.admin-input-field.error input {
-    border-color: #ef4444;
 }
