@@ -1,6 +1,8 @@
 // src/components/RegistrationForm.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './RegistrationForm.css';
 
 const RegistrationForm = () => {
@@ -45,6 +47,7 @@ const RegistrationForm = () => {
     const formErrors = validate();
     if (Object.keys(formErrors).length > 0) {
       setErrors(formErrors);
+      toast.error('❌ Please fix the errors in the form.');
     } else {
       try {
         const response = await fetch('https://register-event-cwsv.onrender.com/api/register', {
@@ -56,6 +59,7 @@ const RegistrationForm = () => {
         const data = await response.json();
         if (response.ok) {
           setSuccessMessage('✅ Form submitted successfully!');
+          toast.success('✅ Form submitted successfully!');
           console.log('✅ Server Response:', data);
           setFormData({
             fullName: '',
@@ -65,11 +69,11 @@ const RegistrationForm = () => {
           });
         } else {
           console.error('❌ Error:', data);
-          alert('❌ Submission failed. Please try again.');
+          toast.error('❌ Submission failed. Please try again.');
         }
       } catch (error) {
         console.error('❌ Network or server error:', error);
-        alert('❌ Submission failed. Please try again.');
+        toast.error('❌ Submission failed. Please try again.');
       }
     }
   };
@@ -130,6 +134,7 @@ const RegistrationForm = () => {
           </form>
         </div>
       </div>
+      <ToastContainer position="top-right" autoClose={3000} />
     </div>
   );
 };
