@@ -58,7 +58,6 @@ const RegistrationForm = () => {
 
         const data = await response.json();
         if (response.ok) {
-          setSuccessMessage('✅ Form submitted successfully!');
           toast.success('✅ Form submitted successfully!');
           console.log('✅ Server Response:', data);
           setFormData({
@@ -130,7 +129,7 @@ const RegistrationForm = () => {
             {errors.contact && <p className="error">{errors.contact}</p>}
 
             <button type="submit" className="submit-btn">Submit</button>
-            {successMessage && <p className="success-message">{successMessage}</p>}
+
           </form>
         </div>
       </div>
